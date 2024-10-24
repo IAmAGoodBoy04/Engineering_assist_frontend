@@ -13,8 +13,8 @@ document.getElementById('settings_button').addEventListener('click', function() 
 document.getElementById('home_button').addEventListener('click', function() {
     window.location.href = './homepage.html';
 });
-document.querySelector('.logout').addEventListener('click', async function() {
-    await clearCookies();
+document.querySelector('.logout').addEventListener('click', function() {
+    clearCookies();
     window.location.href = './index.html';
 });
 

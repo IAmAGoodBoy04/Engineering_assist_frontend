@@ -55,12 +55,30 @@ nav.flex{
 }
 
 #profile_icon{
+    position: relative;
     height: 40px;
     width: 40px;
     background-color: rgb(235, 233, 233);
     border-radius: 40px;
     align-items: center;
     justify-content: center;
+}
+#tooltip{
+    display: none;
+    position: absolute;
+    width: 140px;
+    bottom: -65px;
+    left: 50%;
+    transform: translateX(-68%);
+    background-color:#FBFAFE;
+    color:#3A3A3A;
+    padding: 5px 10px;
+    border-radius: 8px;
+    /* white-space: nowrap; */
+    z-index: 10;
+}
+#profile_icon:hover #tooltip {
+    display: block;
 }
 .container{
     align-items: center;
@@ -140,5 +158,5 @@ nav.flex{
     display: block;
     margin-top: 10px;
     font-size: 14px;
-    color:lightgray;
+    color:whitesmoke;
 }
