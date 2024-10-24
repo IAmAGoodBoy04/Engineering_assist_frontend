@@ -21,11 +21,14 @@ document.addEventListener('DOMContentLoaded',async ()=>{
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data),
-                    credentials: 'include'
+                    body: JSON.stringify(data)
                 });
-                console.log(response);
                 if (response.ok) {
+                    const responseData = await response.json();
+                    setCookie('token', responseData.token, 2);
+                    setCookie('userId', responseData.userId, 2);
+                    setCookie('email', responseData.email, 2);
+                    setCookie('username', responseData.username, 2);
                     await storetosession();
                     window.location.href = './homepage.html';
                 } else {
@@ -43,6 +46,12 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
+function setCookie(cname, cvalue, exhr) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exhr*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 function storetosession(){
     sessionStorage.setItem('token', getCookie('token'));
     sessionStorage.setItem('userId', getCookie('userId'));

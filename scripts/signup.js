@@ -24,11 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data),
-                    credentials: 'include' // to include cookies in the request
+                    body: JSON.stringify(data)
                 });
 
+
                 if (response.ok) {
+                    const responseData = await response.json();
+                    setCookie('token', responseData.token, 2);
+                    setCookie('userId', responseData.userId, 2);
+                    setCookie('email', responseData.email, 2);
+                    setCookie('username', responseData.username, 2);
+                    await storetosession();
                     window.location.href = './homepage.html';
                 } else {
                     const errorData = await response.json();
@@ -40,3 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function setCookie(cname, cvalue, exhr) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exhr*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
