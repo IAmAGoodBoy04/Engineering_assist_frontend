@@ -44,3 +44,32 @@ if (adminButton) {
         }
     });
 }
+
+const saveButton = document.querySelector('.save-button');
+    if (saveButton) {
+        saveButton.addEventListener('click', async () => {
+            const temperatureSlider = document.getElementById('temperature');
+            const temperatureValue = parseFloat(temperatureSlider.value);
+
+            try {
+                const response = await fetch(`${flask_url}/settemperature`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ temperature: temperatureValue })
+                });
+
+                if (response.ok) {
+                    alert('Temperature setting saved successfully.');
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.message || 'Failed to save temperature setting. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error saving temperature setting:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
