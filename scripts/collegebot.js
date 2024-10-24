@@ -52,7 +52,6 @@ async function fetchChats() {
             chats.forEach(chat => {
                 appendChat(chat);
             });
-            location.reload(true);
         } else {
             console.error('Failed to fetch chats');
         }
