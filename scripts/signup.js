@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080";
+const URL = "https://engineering-assist.onrender.com";
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('auth-form');
