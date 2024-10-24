@@ -1,4 +1,4 @@
-const URL = "https://engineering-assist.onrender.com";
+const URL = "https://engineering-assist-lh3f.onrender.com";
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('auth-form');

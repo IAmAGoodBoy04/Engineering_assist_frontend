@@ -1,4 +1,4 @@
-const URL = "https://engineering-assist.onrender.com";
+const URL = "https://engineering-assist-lh3f.onrender.com";
 
 const userId=sessionStorage.getItem('userId');
 const token=sessionStorage.getItem('token');
@@ -52,6 +52,7 @@ async function fetchChats() {
             chats.forEach(chat => {
                 appendChat(chat);
             });
+            location.reload(true);
         } else {
             console.error('Failed to fetch chats');
         }
