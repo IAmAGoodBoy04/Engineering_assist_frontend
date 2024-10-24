@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="./styles/collegebot.css">
 </head>
 <body>
-    <template id="user_messsage">
+    <template id="user_message">
         <div class="usermessage">
             <div class="usermessage_text">
                 <p></p>
             </div>
         </div>
     </template>
-    <template id="ai_messsage">
+    <template id="ai_message">
         <div class="aimessage">
             <div class="aimessage_text">
                 <p></p>
@@ -36,7 +36,7 @@
             </div>
             <div class="sidecont flexvert">
                 <div class="chats flexvert">
-                    <div class="newchat flex">
+                    <div class="newchat flex" id="newchat_button">
                         <h3>New Chat</h3>
                         <div class="plusicon">
                         <img src="./resources/images/plus.png" alt="plus">
@@ -62,7 +62,7 @@
                 <div class="head flex">
                     <div class="headtext">
                         <span class="big">Engineering Assist</span>
-                        <span class="small">querying {college name}</span>
+                        <span class="small">querying <span class="small" id="headtitle"></span></span>
                     </div>
                     <nav class="flex">
                         <button id="settings_button">Settings</button>
@@ -71,7 +71,6 @@
                 </div>
                 <div class="rule"></div>
                 <div class="message_space">
-                    
                 </div>
                 <div class="input-container">
                     <textarea class="query-input" placeholder="Type your query here"></textarea>
@@ -83,6 +82,6 @@
         </div>
     </div>
 
-    <script src="./scripts/collegebot.js"></script>
+    <script src="./scripts/textbookbot.js"></script>
 </body>
 </html>

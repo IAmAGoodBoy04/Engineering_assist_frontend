@@ -238,12 +238,11 @@ nav{
 .message_space{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     margin-top: 15px;
     margin-bottom: 15px;
     height: 72.25vh;
     max-height: 72.25vh;
-    overflow-y: auto;
+    overflow-y: scroll;
     row-gap: 10px;
 }
 .message_space::-webkit-scrollbar {

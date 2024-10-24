@@ -112,6 +112,9 @@ body {
     background-size: 0.65rem auto;
     margin-right: 25px;
 }
+#college_dropdown option{
+    background-color: #FBFAFE;
+}
 
 .confirm {
     background-color: #4CAF50;
