@@ -4,7 +4,7 @@ const userId=sessionStorage.getItem('userId');
 const token=sessionStorage.getItem('token');
 const email=decodeURIComponent(sessionStorage.getItem('email'));
 const username = decodeURIComponent(sessionStorage.getItem('username'));
-const flask_url = sessionStorage.getItem('fetchedUrl');
+const flask_url = 'https://vikas2900-engineering-assist.hf.space';
 const textbook=sessionStorage.getItem('topic');
 
 document.getElementById('settings_button').addEventListener('click', function() {
@@ -38,7 +38,7 @@ document.getElementById('headtitle').textContent=`${textbook}`;
 
 async function fetchChats() {
     try {
-        const response = await fetch(`${URL}/chats?userId=${userId}&topic=${textbook}`, {
+        const response = await fetch(`${URL}/chats?topic=${textbook}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ function appendChat(chat) {
 async function fetchMessages(chatId) {
     chatid=chatId;
     try {
-        const response = await fetch(`${URL}/chats/${chatId}/messages?userId=${userId}`, {
+        const response = await fetch(`${URL}/chats/${chatId}/messages`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ document.querySelector('.submit-button').addEventListener('click', async () => {
     }
 
     try {
-        const response = await fetch(`${URL}/chats/${chatid}/messages?userId=${userId}`,{
+        const response = await fetch(`${URL}/chats/${chatid}/messages`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

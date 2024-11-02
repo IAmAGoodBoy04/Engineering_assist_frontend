@@ -17,14 +17,19 @@
             <form id="auth-form" action="#if" method="POST">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Continue</button>
+                <button type="submit" class="continue">Continue</button>
             </form>
+            <div class="oauth-section">
+                <button id="google-signin" class="oauth-button">
+                </button>
+            </div>
             <div class="register-link">
                 New account? <a href="./signup.html" id="toggle-link">Register</a>
             </div>
         </div>
     </div>
     </div>
+    <script src="https://accounts.google.com/gsi/client"></script>
     <script src="./scripts/login.js"></script>
 </body>
 </html>

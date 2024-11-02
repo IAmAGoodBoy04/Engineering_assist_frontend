@@ -14,25 +14,7 @@ document.getElementById('logout_button').addEventListener('click', function() {
     window.location.href = './index.html';
 });
 
-fetch(`${URL}/url`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-})
-.then(response => response.json())
-.then(data => {
-    if (data.url) {
-        sessionStorage.setItem('fetchedUrl', data.url);
-    } else {
-        console.error('URL not found in response');
-    }
-})
-.catch(error => {
-    console.error('Error fetching URL:', error);
-});
-
+sessionStorage.setItem('fetchedUrl',"https://vikas2900-engineering-assist.hf.space" );
 function clearCookies() {
     const cookies = document.cookie.split(";");
     sessionStorage.removeItem('token');
@@ -170,7 +152,7 @@ document.getElementById('college_dropdown').addEventListener('change', async fun
     const selectedOption = event.target.options[event.target.selectedIndex];
     sessionStorage.setItem('topic', selectedOption.textContent);
 
-    const fetchedUrl = sessionStorage.getItem('fetchedUrl');
+    const fetchedUrl = "https://vikas2900-engineering-assist.hf.space";
     const payload = { "collection_name": selectedOption.textContent };
 
     try {
@@ -198,7 +180,7 @@ document.getElementById('textbook_dropdown').addEventListener('change', async fu
     const selectedOption = event.target.options[event.target.selectedIndex];
     sessionStorage.setItem('topic', selectedOption.textContent);
 
-    const fetchedUrl = sessionStorage.getItem('fetchedUrl');
+    const fetchedUrl ='https://vikas2900-engineering-assist.hf.space' ;
     const payload = { "collection_name": selectedOption.textContent };
 
     try {

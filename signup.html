@@ -19,14 +19,19 @@
                 <input type="text" name="email" placeholder="Email-id" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-                <button type="submit">Continue</button>
+                <button type="submit" class="continue">Continue</button>
             </form>
+            <div class="oauth-section">
+                <button id="google-signin" class="oauth-button">
+                </button>
+            </div>
             <div class="register-link">
                 Already signed up? <a href="./index.html" id="toggle-link">Sign In</a>
             </div>
         </div>
     </div>
     </div>
+    <script src="https://accounts.google.com/gsi/client"></script>
     <script src="./scripts/signup.js"></script>
 </body>
 </html>

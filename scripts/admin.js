@@ -4,7 +4,7 @@ const userId=sessionStorage.getItem('userId');
 const token=sessionStorage.getItem('token');
 const email=decodeURIComponent(sessionStorage.getItem('email'));
 const username = decodeURIComponent(sessionStorage.getItem('username'));
-const flask_url = sessionStorage.getItem('fetchedUrl');
+const flask_url = "https://vikas2900-engineering-assist.hf.space";
 const textbook=sessionStorage.getItem('topic');
 
 
