@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
 
 async function fetchChats() {
     try {
-        const response = await fetch(`${URL}/chats?userId=${userId}&topic=${textbook}`, {
+        const response = await fetch(`${URL}/chats?topic=${textbook}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

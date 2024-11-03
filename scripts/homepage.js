@@ -82,6 +82,13 @@ document.getElementById('file_upload').addEventListener('change', async function
                     if (textbooksResponse.ok) {
                         alert('Textbook information updated successfully.');
                         fileNameSpan.textContent = 'Uploaded!';
+                        const t=await textbooksResponse.json();
+                        const textbook=t.textbook;
+                        const textbookDropdown = document.getElementById('textbook_dropdown');
+                        const option = document.createElement('option');
+                        option.value = textbook.id;
+                        option.textContent = textbook.name;
+                        textbookDropdown.appendChild(option);
                     } else {
                         const errorData = await textbooksResponse.json();
                         alert(errorData.message || 'Failed to update textbook information. Please try again.');
