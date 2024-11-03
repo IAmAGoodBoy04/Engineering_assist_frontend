@@ -1,4 +1,5 @@
 const URL = "https://engineering-assist-lh3f.onrender.com";
+// const URL = "http://localhost:8080";
 
 const userId=sessionStorage.getItem('userId');
 const token=sessionStorage.getItem('token');
@@ -14,7 +15,7 @@ document.getElementById('home_button').addEventListener('click', function() {
     window.location.href = './homepage.html';
 });
 document.querySelector('.logout').addEventListener('click', async function() {
-    await clearCookies();
+    clearCookies();
     window.location.href = './index.html';
 });
 
@@ -34,7 +35,89 @@ function clearCookies() {
     }
 }
 
-document.getElementById('headtitle').textContent=`${textbook}`;
+let chatid = null;
+
+document.addEventListener("DOMContentLoaded",async ()=>{
+    document.getElementById('headtitle').textContent=`${textbook}`;
+    document.querySelector('.user_info .username').textContent = username;
+    await fetchChats();
+    document.getElementById('newchat_button').addEventListener('click', async function() {
+        const newChatName = prompt('Enter the name for the new chat:');
+        if (newChatName) {
+            const payload = {
+                name: newChatName,
+                owner: userId,
+                topic: textbook
+            };
+
+            try {
+                const response = await fetch(`${URL}/chats/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const newChat = await response.json();
+                    appendChat(newChat); // Append the new chat to the list
+                    alert('New chat created successfully.');
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.message || 'Failed to create new chat. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error creating new chat:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    });
+    document.querySelector('.submit-button').addEventListener('click', async () => {
+        const textarea = document.querySelector('.query-input');
+        const messageContent = textarea.value.trim();
+        if (!messageContent || !chatid) {
+            return;
+        }
+    
+        try {
+            const response = await fetch(`${URL}/chats/${chatid}/messages`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ message: messageContent })
+                
+            });
+    
+            if (response.ok) {
+                const responseData = await response.json();
+                const messageSpace = document.querySelector('.message_space');
+    
+                const userTemplate = document.getElementById('user_message');
+                const userClone = userTemplate.content.cloneNode(true);
+                const userMessageText = userClone.querySelector('p');
+                userMessageText.innerHTML = messageContent;
+                messageSpace.appendChild(userClone);
+    
+                const aiTemplate = document.getElementById('ai_message');
+                const aiClone = aiTemplate.content.cloneNode(true);
+                const aiMessageText = aiClone.querySelector('p');
+                aiMessageText.innerHTML = responseData.message;
+                messageSpace.appendChild(aiClone);
+    
+                textarea.value = '';
+            } else {
+                console.error('Failed to send message');
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    });
+
+})
 
 async function fetchChats() {
     try {
@@ -60,44 +143,6 @@ async function fetchChats() {
     }
 }
 
-fetchChats();
-
-let chatid = null;
-
-document.getElementById('newchat_button').addEventListener('click', async function() {
-    const newChatName = prompt('Enter the name for the new chat:');
-    if (newChatName) {
-        const payload = {
-            name: newChatName,
-            owner: userId,
-            topic: textbook
-        };
-
-        try {
-            const response = await fetch(`${URL}/chats/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                const newChat = await response.json();
-                appendChat(newChat); // Append the new chat to the list
-                alert('New chat created successfully.');
-            } else {
-                const errorData = await response.json();
-                alert(errorData.message || 'Failed to create new chat. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error creating new chat:', error);
-            alert('An error occurred. Please try again.');
-        }
-    }
-});
-
 function appendChat(chat) {
     const chatContainer = document.querySelector('.sidecont .chats'); // Assuming you have a container for chat entries
 
@@ -106,9 +151,9 @@ function appendChat(chat) {
     const chatDiv = clone.querySelector('.chat_ent');
     const chatTitle = clone.querySelector('h3');
 
-    chatDiv.id = `a${chat.id}`;
+    chatDiv.id = `a${chat._id}`;
     chatTitle.textContent = chat.name;
-    chatDiv.addEventListener('click', () => fetchMessages(chat.id));
+    chatDiv.addEventListener('click',async () => await fetchMessages(chat._id));
 
     chatContainer.appendChild(clone);
 }
@@ -149,48 +194,3 @@ async function fetchMessages(chatId) {
         console.error('Error fetching messages:', error);
     }
 }
-
-document.querySelector('.user_info .username').textContent = username;
-
-document.querySelector('.submit-button').addEventListener('click', async () => {
-    const textarea = document.querySelector('.query-input');
-    const messageContent = textarea.value.trim();
-    if (!messageContent || !chatid) {
-        return;
-    }
-
-    try {
-        const response = await fetch(`${URL}/chats/${chatid}/messages`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ message: messageContent })
-            
-        });
-
-        if (response.ok) {
-            const responseData = await response.json();
-            const messageSpace = document.querySelector('.message_space');
-
-            const userTemplate = document.getElementById('user_message');
-            const userClone = userTemplate.content.cloneNode(true);
-            const userMessageText = userClone.querySelector('p');
-            userMessageText.innerHTML = messageContent;
-            messageSpace.appendChild(userClone);
-
-            const aiTemplate = document.getElementById('ai_message');
-            const aiClone = aiTemplate.content.cloneNode(true);
-            const aiMessageText = aiClone.querySelector('p');
-            aiMessageText.innerHTML = responseData.message;
-            messageSpace.appendChild(aiClone);
-
-            textarea.value = '';
-        } else {
-            console.error('Failed to send message');
-        }
-    } catch (error) {
-        console.error('Error sending message:', error);
-    }
-});
