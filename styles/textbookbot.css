@@ -112,6 +112,7 @@ body{
     margin-left: 10px;
 }
 .chat_ent{
+    justify-content: space-between;
     align-items: center;
     height: 50px;
     background-color:#3A3A3A;
@@ -123,6 +124,22 @@ body{
     margin-right: 20px;
     font-weight: normal;
 }
+.chat_ent .del_img{
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+    margin-left: 10px;
+    border-radius: 2px;
+}
+.del_img img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.chat_ent .del_img:hover{
+    background-color:grey;
+}
+
 .plusicon img{
     height: 100%;
     width: 100%;
@@ -214,7 +231,7 @@ nav{
 .query-input::placeholder {
     color:gray;
 }
-.submit-button {
+.submit-button,.submit_audio {
     background-color: transparent;
     padding: 10px;
     margin-left: 10px;
@@ -227,12 +244,12 @@ nav{
     justify-content: center;
 }
 
-.submit-button img {
+.submit-button img,.submit_audio img {
     width: 20px;
     height: 20px;
 }
 
-.submit-button:hover {
+.submit-button:hover,.submit_audio:hover {
     background-color: lightgray;
 }
 .message_space{
@@ -267,4 +284,8 @@ nav{
     margin-right: auto;
     border-radius: 5px;
     padding-left: 10px;
+}
+
+.submit_audio.recording {
+    background-color:#a965da;
 }
