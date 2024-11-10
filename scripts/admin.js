@@ -86,8 +86,6 @@ if (confirmFileButton) {
         }
 
         const file = fileInput.files[0];
-        const fileExtension = file.name.split('.').pop();
-        const newFileName = `${selectedCollege}.${fileExtension}`;
         const formData = new FormData();
         formData.append('file', new File([file], newFileName));
         formData.append('type', '1');

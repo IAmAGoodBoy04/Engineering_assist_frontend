@@ -35,6 +35,10 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Unit Tests
+        run: npm run test
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
